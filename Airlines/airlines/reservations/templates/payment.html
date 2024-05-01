@@ -1,0 +1,60 @@
+<!-- templates/flights/payment.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            width: 60%;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .flight-details {
+            margin-bottom: 20px;
+        }
+        .action {
+            text-align: center;
+        }
+        a {
+            text-decoration: none;
+            color: white;
+            background-color: #007BFF;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Payment for Flight ID: {{ flight.id }}</h1>
+    <div class="container">
+        <div class="flight-details">
+            <h2>Flight Details:</h2>
+            <p>Flight Number:AA123 </p>
+            <p>Departure:JFK </p>
+            <p>Arrival:LAX</p>
+            <p>Price:$300</p>
+        </div>
+
+        <div class="action">
+            <a href="/confirmPayment/">Payment</a>
+        </div>
+    </div>
+</body>
+</html>

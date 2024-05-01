@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirm Payment</title>
+    <style>
+        /* Center the form on the page */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full viewport height */
+            margin: 0;
+            background-color: #f0f0f0; /* Light gray background for contrast */
+        }
+
+        /* Add a container for the form with padding and border */
+        .form-container {
+            background-color: #ffffff; /* White background */
+            border: 2px solid #ddd; /* Light gray border */
+            padding: 20px; /* Spacing inside the form */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            width: 300px; /* Fixed width */
+            text-align: left; /* Align text to the left */
+        }
+
+        /* Space out form elements */
+        .form-container h2 {
+            text-align: center; /* Center the form heading */
+            margin-bottom: 20px; /* Space below the heading */
+        }
+
+        .form-container p {
+            margin-bottom: 10px; /* Space below paragraph */
+        }
+
+        .form-container label {
+            display: block; /* Force new line for each label */
+            margin-bottom: 8px; /* Space below each label */
+        }
+
+        .form-container select,
+        .form-container button {
+            width: 100%; /* Make input fields full width */
+            padding: 8px; /* Add padding inside the fields */
+            border: 1px solid #ccc; /* Light border for inputs */
+            border-radius: 5px; /* Slightly rounded corners */
+        }
+
+        /* Style the submit button */
+        .form-container button {
+            background-color: #4CAF50; /* Green background */
+            color: white; /* White text */
+            border: none; /* No border */
+            cursor: pointer; /* Cursor changes to pointer */
+            font-weight: bold; /* Bold text */
+        }
+
+        .form-container button:hover {
+            background-color: #45a049; /* Darken on hover */
+        }
+
+        /* Hide payment details by default */
+        .payment-details {
+            display: none;
+        }
+    </style>
+    <script>
+        function showPaymentDetails() {
+            const paymentMethods = document.querySelectorAll('input[name="payment-method"]');
+            paymentMethods.forEach((method) => {
+                const details = document.getElementById(method.value + "-details");
+                if (method.checked) {
+                    details.style.display = "block";
+                } else {
+                    details.style.display = "none";
+                }
+            });
+        }
+
+        function confirmPayment(event) {
+            const selectedMethod = document.querySelector('input[name="payment-method"]:checked');
+            if (!selectedMethod) {
+                alert("Please select a payment method.");
+                event.preventDefault(); // Prevent form submission
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Confirm Payment</h2>
+        <form onsubmit="confirmPayment(event)" action="/thankyou/">
+            <p>Select a payment method:</p>
+            <label>
+                <input type="radio" name="payment-method" value="UPI" onclick="showPaymentDetails()">
+                UPI
+            </label>
+            <label>
+                <input type="radio" name="payment-method" value="NetBanking" onclick="showPaymentDetails()">
+                Net Banking
+            </label>
+            <label>
+                <input type="radio" name="payment-method" value="CreditCard" onclick="showPaymentDetails()">
+                Credit Card
+            </label>
+
+            <!-- UPI Details -->
+            <div id="UPI-details" class="payment-details">
+                <h3>UPI Details</h3>
+                <label for="upi-id">UPI ID:</label>
+                <input type="text" id="upi-id" name="upi-id" placeholder="e.g., user@bank">
+            </div>
+
+            <!-- Net Banking Details -->
+            <div id="NetBanking-details" class="payment-details">
+                <h3>Net Banking Details</h3>
+                <label for="bank">Bank:</label>
+                <select id="bank" name="bank">
+                    <option value="">Select a bank</option>
+                    <option value="HDFC">HDFC</option>
+                    <option value="ICICI">ICICI</option>
+                    <option value="SBI">SBI</option>
+                    <option value="Axis">Axis</option>
+                </select>
+            </div>
+
+            <!-- Credit Card Details -->
+            <div id="CreditCard-details" class="payment-details">
+                <h3>Credit Card Details</h3>
+                <label for="card-number">Card Number:</label>
+                <input type="text" id="card-number" name="card-number" placeholder="XXXX-XXXX-XXXX-XXXX">
+                <br>
+                <label for="expiry">Expiry Date:</label>
+                <input type="month" id="expiry" name="expiry">
+                <br>
+                <label for="cvv">CVV:</label>
+                <input type="text" id="cvv" placeholder="XXX">
+            </div>
+
+            <br>
+            <button type="submit">Confirm Payment</button>
+        </form>
+    </div>
+</body>
+</html>
